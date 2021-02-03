@@ -48,7 +48,14 @@ class LinkedList:
         self.head.next.prev = self.head
 
     def insert_last(self, data):
-        pass
+        if self.head is None and self.tail is None:
+            node = Node(data)
+            self.head = node
+            self.tail = node
+            return
+
+        node = Node(data, prev=self.tail)
+        self.tail.next = node
 
     def insert_at(self, index: int, data):
         pass
@@ -66,27 +73,47 @@ class LinkedList:
         pass
 
     def get_first(self):
-        pass
+        if self.head is None:
+            return
+
+        return self.head
 
     def get_at(self):
         pass
 
     def get_last(self):
-        pass
+        if self.head and self.tail is None:
+            return
+
+        return self.tail
 
     def __getitem__(self, index: int):
         pass
 
     def length(self):
-        pass
+        if self.head is None and self.tail is None:
+            return 0
+
+        counter = 0
+        current = self.head
+
+        while current:
+            current = current.next
+            counter += 1
+
+        return counter
 
     def __len__(self):
-        pass
+        return self.length()
 
     def clear(self):
-        pass
+        if self.head is None and self.tail is None:
+            return
 
-    def for_each(self):
+        self.head = None
+        self.tail = None
+
+    def for_each(self, fn):
         pass
 
 
