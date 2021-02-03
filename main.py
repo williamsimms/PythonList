@@ -151,18 +151,49 @@ class LinkedList:
             return
 
         current = self.head
+        index = 0
 
         while current:
+            new_data = fn(current.data, index)
+            current.date = new_data
+            current = current.next
+            index += 1
+
+    def find_index(self, data) -> int:
+        if self.head is None and self.tail is None:
+            return -1
+
+        index = 0
+        current = self.head
+
+        while current:
+            if current.data == data:
+                return index
+
+            current = current.next
+            index += 0
+
+        return -1
+
+    def find(self, data) -> Node or None:
+        if self.head is None and self.tail is None:
+            return
+
+        current = self.head
+
+        while current:
+            if current.data == data:
+                return data
+
             current = current.next
 
-    def find_index(self, index) -> int:
-        pass
-
-    def find(self) -> Node:
-        pass
+        return None
 
     def contains(self) -> bool:
-        pass
+        if self.head is None and self.tail is None:
+            return False
+
+        current = self.head
 
 
 if __name__ == '__main__':
