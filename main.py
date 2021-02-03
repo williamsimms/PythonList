@@ -1,22 +1,22 @@
 class Node:
-    def __init__(self, data, prev=None, next=None):
+    def __init__(self, data, prev=None, next=None) -> None:
         self.data = data
         self.prev = prev
         self.next = next
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str({'data': self.data, 'prev': self.prev, 'next': self.next})
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str({'data': self.data, 'prev': self.prev, 'next': self.next})
 
 
 class LinkedList:
-    def __init__(self):
-        self.head = None
-        self.tail = None
+    def __init__(self) -> None:
+        self.head: Node = None
+        self.tail: Node = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         linkedlist = ''
 
         current = self.head
@@ -30,13 +30,10 @@ class LinkedList:
 
         return linkedlist
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self.head)
 
-    def print_list(self):
-        return str(self.head)
-
-    def insert_first(self, data):
+    def insert_first(self, data) -> None:
         if self.head is None and self.tail is None:
             node = Node(data)
             self.head = node
@@ -47,7 +44,7 @@ class LinkedList:
         self.head = node
         self.head.next.prev = self.head
 
-    def insert_last(self, data):
+    def insert_last(self, data) -> None:
         if self.head is None and self.tail is None:
             node = Node(data)
             self.head = node
@@ -57,27 +54,33 @@ class LinkedList:
         node = Node(data, prev=self.tail)
         self.tail.next = node
 
-    def insert_at(self, index: int, data):
+    def insert_at(self, index: int, data) -> None:
         if self.head is None and self.tail is None:
             node = Node(data)
             self.head = node
             self.tail = node
             return
 
-            counter = 0
-            current = self.head
+        counter = 0
+        current = self.head
 
-            while current and index > 0:
-                pass
+        while current and counter != index:
+            if counter == index:
+                break
 
-    def remove_first(self):
+            current = current.next
+
+        node = Node(data, prev=current, next=current.next)
+        current.next = node
+
+    def remove_first(self) -> None:
         if self.head is None:
             return
 
         self.head = self.head.next
         self.head.prev = None
 
-    def remove_last(self, data):
+    def remove_last(self, data) -> None:
         if self.head is None and self.tail is None:
             return
 
@@ -85,33 +88,42 @@ class LinkedList:
         self.tail = previous
         self.tail.next = None
 
-    def remove_at(self, index: int):
+    def remove_at(self, index: int) -> None:
         if self.head is None and self.tail is None:
             return
 
-    def reverse(self):
+    def reverse(self) -> None:
         if self.head is None and self.tail is None:
             return
 
-    def get_first(self):
+    def get_first(self) -> Node:
         if self.head is None:
             return
 
         return self.head
 
-    def get_at(self, index: int):
-        pass
+    def get_at(self, index: int) -> Node:
+        if self.head is None and self.tail is None:
+            return
 
-    def __getitem__(self, index: int):
-        pass
+        current = self.head
 
-    def get_last(self):
-        if self.head and self.tail is None:
+        while current and index > 0:
+            current = current.next
+            index -= 1
+
+        return current
+
+    def __getitem__(self, index: int) -> Node:
+        return self.get_at(index)
+
+    def get_last(self) -> Node:
+        if self.head is None and self.tail is None:
             return
 
         return self.tail
 
-    def length(self):
+    def length(self) -> int:
         if self.head is None and self.tail is None:
             return 0
 
@@ -124,26 +136,32 @@ class LinkedList:
 
         return counter
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self.length()
 
-    def clear(self):
+    def clear(self) -> None:
         if self.head is None and self.tail is None:
             return
 
         self.head = None
         self.tail = None
 
-    def for_each(self, fn):
+    def for_each(self, fn) -> None:
+        if self.head is None and self.tail is None:
+            return
+
+        current = self.head
+
+        while current:
+            current = current.next
+
+    def find_index(self, index) -> int:
         pass
 
-    def find_index(self, index):
+    def find(self) -> Node:
         pass
 
-    def find(self):
-        pass
-
-    def contains(self):
+    def contains(self) -> bool:
         pass
 
 
