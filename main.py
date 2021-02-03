@@ -189,11 +189,19 @@ class LinkedList:
 
         return None
 
-    def contains(self) -> bool:
+    def contains(self, data) -> bool:
         if self.head is None and self.tail is None:
             return False
 
         current = self.head
+
+        while current:
+            if current.data == data:
+                return True
+
+            current = current.next
+
+        return False
 
 
 if __name__ == '__main__':
@@ -201,3 +209,5 @@ if __name__ == '__main__':
     linkedlist.insert_first(2)
     linkedlist.insert_first(6)
     linkedlist.insert_first(11)
+    node = Node(12, None, None)
+    print(node)
