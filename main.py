@@ -23,7 +23,7 @@ class LinkedList:
 
         while current:
             linkedlist += str(current.data)
-            linkedlist += ' -> '
+            linkedlist += ' -><- '
             current = current.next
 
         linkedlist += 'None'
@@ -58,19 +58,40 @@ class LinkedList:
         self.tail.next = node
 
     def insert_at(self, index: int, data):
-        pass
+        if self.head is None and self.tail is None:
+            node = Node(data)
+            self.head = node
+            self.tail = node
+            return
+
+            counter = 0
+            current = self.head
+
+            while current and index > 0:
+                pass
 
     def remove_first(self):
-        pass
+        if self.head is None:
+            return
+
+        self.head = self.head.next
+        self.head.prev = None
 
     def remove_last(self, data):
-        pass
+        if self.head is None and self.tail is None:
+            return
+
+        previous = self.tail.prev
+        self.tail = previous
+        self.tail.next = None
 
     def remove_at(self, index: int):
-        pass
+        if self.head is None and self.tail is None:
+            return
 
     def reverse(self):
-        pass
+        if self.head is None and self.tail is None:
+            return
 
     def get_first(self):
         if self.head is None:
@@ -78,7 +99,10 @@ class LinkedList:
 
         return self.head
 
-    def get_at(self):
+    def get_at(self, index: int):
+        pass
+
+    def __getitem__(self, index: int):
         pass
 
     def get_last(self):
@@ -86,9 +110,6 @@ class LinkedList:
             return
 
         return self.tail
-
-    def __getitem__(self, index: int):
-        pass
 
     def length(self):
         if self.head is None and self.tail is None:
@@ -114,6 +135,15 @@ class LinkedList:
         self.tail = None
 
     def for_each(self, fn):
+        pass
+
+    def find_index(self, index):
+        pass
+
+    def find(self):
+        pass
+
+    def contains(self):
         pass
 
 
