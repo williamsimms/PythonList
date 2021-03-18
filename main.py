@@ -15,6 +15,7 @@ class LinkedList:
     def __init__(self) -> None:
         self.head: Node = None
         self.tail: Node = None
+        self.length = 0
 
     def __str__(self) -> str:
         linkedlist = ''
@@ -34,46 +35,59 @@ class LinkedList:
         return str(self.head)
 
     def insert_first(self, data) -> None:
+        '''
+        Inserts a node at the 0th position or first position in the linked list.
+        The newly inserted node becomes the head of the list, and in the event
+        that the list was empty the tail as well.
+        '''
         if self.head is None and self.tail is None:
             node = Node(data)
             self.head = node
             self.tail = node
+            self.length += 1
             return
 
         node = Node(data, next=self.head)
         self.head = node
         self.head.next.prev = self.head
+        self.length += 1
 
     def insert_last(self, data) -> None:
         if self.head is None and self.tail is None:
             node = Node(data)
             self.head = node
             self.tail = node
+            self.length += 1
             return
 
         node = Node(data, prev=self.tail)
         self.tail.next = node
+        self.length += 1
 
+    # ! Unfinished
     def insert_at(self, index: int, data) -> None:
         if self.head is None and self.tail is None:
             node = Node(data)
             self.head = node
             self.tail = node
+            self.length += 1
             return
 
-        counter = 0
-        current = self.head
+        if index == 0:
+            node = Node(data, next=self.head)
+            self.head = node
+            self.length += 1
+            return
 
-        while current and counter != index:
-            if counter == index:
-                break
+        previous = self.get_at(index - 1)
 
-            current = current.next
-
-        node = Node(data, prev=current, next=current.next)
-        current.next = node
+        self.length += 1
 
     def remove_first(self) -> None:
+        '''
+        Removes the first node from the linked list. The node at the 1st position or the 
+        second node become the first node and such also the head of the linked list.
+        '''
         if self.head is None:
             return
 
@@ -88,13 +102,16 @@ class LinkedList:
         self.tail = previous
         self.tail.next = None
 
+    #! Unfinished
     def remove_at(self, index: int) -> None:
         if self.head is None and self.tail is None:
             return
 
+    #! Unfinished
     def reverse(self) -> None:
         if self.head is None and self.tail is None:
             return
+        pass
 
     def get_first(self) -> Node:
         if self.head is None:
@@ -102,15 +119,25 @@ class LinkedList:
 
         return self.head
 
-    def get_at(self, index: int) -> Node:
+    def get_at(self, index: int):
+        '''
+        Gets the desired node at a certain index in the doubly linked list.
+        If the index is greater than the list's size the last node will be returned.
+        If the index is less than 0 the first node will be returned.
+        '''
+
         if self.head is None and self.tail is None:
             return
 
-        current = self.head
+        if index < 0 or index == 0:
+            return self.head
 
-        while current and index > 0:
+        current = self.head
+        counter = 0
+
+        while current.next is not None and counter < index:
             current = current.next
-            index -= 1
+            counter += 1
 
         return current
 
@@ -118,28 +145,31 @@ class LinkedList:
         return self.get_at(index)
 
     def get_last(self) -> Node:
+        '''
+        Gets the last node in the linked list.
+        '''
+
         if self.head is None and self.tail is None:
             return
 
         return self.tail
 
     def length(self) -> int:
+        '''
+        Gets the length or amount of nodes within the linked list.
+        '''
         if self.head is None and self.tail is None:
             return 0
 
-        counter = 0
-        current = self.head
-
-        while current:
-            current = current.next
-            counter += 1
-
-        return counter
+        return self.length
 
     def __len__(self) -> int:
         return self.length()
 
     def clear(self) -> None:
+        '''
+        Clears all nodes from the linked list.
+        '''
         if self.head is None and self.tail is None:
             return
 
@@ -203,11 +233,15 @@ class LinkedList:
 
         return False
 
+    def print(self):
+        linkedlist = self.__str__()
+        print(linkedlist)
+
 
 if __name__ == '__main__':
     linkedlist = LinkedList()
     linkedlist.insert_first(2)
     linkedlist.insert_first(6)
     linkedlist.insert_first(11)
-    node = Node(12, None, None)
-    print(node)
+    linkedlist.print()
+    linkedlist.get_at(3)
