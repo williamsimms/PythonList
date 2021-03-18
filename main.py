@@ -53,6 +53,10 @@ class LinkedList:
         self.length += 1
 
     def insert_last(self, data) -> None:
+        '''
+        Inserts a node at the last positions in the linked list. 
+        The newly insersted node becomes the tail of the linked list.
+        '''
         if self.head is None and self.tail is None:
             node = Node(data)
             self.head = node
@@ -64,23 +68,25 @@ class LinkedList:
         self.tail.next = node
         self.length += 1
 
-    # ! Unfinished
     def insert_at(self, index: int, data) -> None:
+        '''
+        Inserts a node at any specified index within the linked list. 
+        If the entered index is less than or equal to zero, the node will be entered in the
+        0th position or the first and will become the head. If the index is greater than the size of
+        the list, it will be inserted at the last position and become the tail of the list.
+        '''
         if self.head is None and self.tail is None:
-            node = Node(data)
-            self.head = node
-            self.tail = node
-            self.length += 1
+            self.insert_first(data)
             return
 
-        if index == 0:
-            node = Node(data, next=self.head)
-            self.head = node
-            self.length += 1
+        if index <= 0:
+            self.insert_first(data)
             return
 
         previous = self.get_at(index - 1)
 
+        node = Node(data, prev=previous, next=previous.next)
+        previous.next = node
         self.length += 1
 
     def remove_first(self) -> None:
@@ -93,24 +99,43 @@ class LinkedList:
 
         self.head = self.head.next
         self.head.prev = None
+        self.length -= 1
 
     def remove_last(self, data) -> None:
+        '''
+        Removes the last node from the linked list. The node at n - 1 becomes the tail and the
+        node that is last in the list.
+        '''
         if self.head is None and self.tail is None:
             return
 
         previous = self.tail.prev
         self.tail = previous
         self.tail.next = None
+        self.length -= 1
 
     #! Unfinished
     def remove_at(self, index: int) -> None:
         if self.head is None and self.tail is None:
             return
 
+        if index > self.length or index < 0:
+            return
+
+        if index == 0:
+            self.remove_first()
+            return
+
+        previous = self.get_at(index - 1)
+        previous.next = previous.next.next
+        previous.next.prev = previous
+        self.length -= 1
+
     #! Unfinished
     def reverse(self) -> None:
         if self.head is None and self.tail is None:
             return
+
         pass
 
     def get_first(self) -> Node:
@@ -244,4 +269,11 @@ if __name__ == '__main__':
     linkedlist.insert_first(6)
     linkedlist.insert_first(11)
     linkedlist.print()
+    linkedlist.insert_last(22)
+    linkedlist.insert_at(2, 22)
+    linkedlist.insert_at(2242, 255)
+    linkedlist.insert_at(-22, 4)
+
+    linkedlist.print()
+
     linkedlist.get_at(3)
