@@ -1,4 +1,9 @@
 class Node:
+    '''
+    The node constructor takes three arguments, the data, the previous node in the linked list,
+    and the next node in the linked list. The previous and next have default values of None.
+    '''
+
     def __init__(self, data, prev=None, next=None) -> None:
         self.data = data
         self.prev = prev
@@ -284,7 +289,7 @@ class LinkedList:
     def for_each(self, fn) -> None:
         '''
         Iterates through the entire linked list calling the passed in function
-        on the data of every node in the linked list. The passed function gets the 
+        on the data of every node in the linked list. The passed function gets the
         node's data passed as the first argument and the index of the node as the
         second argument.
         '''
@@ -372,7 +377,54 @@ class LinkedList:
 
         return False
 
+    def find_midpoint(self) -> Node:
+        '''
+        Finds the midpoint of the linked list and returns the node at the middle position of the linked list.
+        '''
+        if self.head is None and self.tail is None:
+            return
+
+        node = self.head
+        fast = self.head
+
+        while fast and fast.next:
+            node = node.next
+            fast = fast.next.next
+
+        return node
+
+    def step_back_from_tail(self, index: int) -> Node:
+        '''
+        Steps backward in a sense from the tail of the linked list. Finds and returns the node,
+        a certain distance backward from the tail.
+        '''
+        if self.head is None and self.tail is None:
+            return False
+
+        current = self.head
+        counter = 0
+
+    def step_forward_from_head(self, index: int) -> Node:
+        '''
+        Steps forward in a sense from the head of the linked list. Finds and returns the node,
+        a certain distance ahead from the head.
+        '''
+        if self.head is None and self.tail is None:
+            return False
+
+        current = self.head
+        counter = 0
+
+    def is_circular(self) -> bool:
+        '''
+        Returns True if the linked list is circular and False if the linked list is not circular.
+        '''
+        if self.head is None and self.tail is None:
+            return False
+
+        current = self.head
+        counter = 0
+
 
 if __name__ == '__main__':
     linkedlist = LinkedList()
-    

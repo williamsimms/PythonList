@@ -245,7 +245,7 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(linkedlist.get_at(1).data, 11)
         self.assertEqual(linkedlist.get_at(2).data, 17)
 
-    def test_for_eact(self):
+    def test_for_each(self):
         linkedlist = LinkedList()
         linkedlist.insert_first(5)
         linkedlist.insert_first(7)
@@ -373,6 +373,85 @@ class LinkedListTest(unittest.TestCase):
         linkedlist.clear()
 
         self.assertTrue(linkedlist.is_empty())
+
+    def test_prev_and_next(self):
+        linkedlist = LinkedList()
+        linkedlist.insert_first(4)
+        linkedlist.insert_first(6)
+        linkedlist.insert_first(8)
+
+        node = linkedlist.get_at(1)
+        previous = node.prev
+        next = node.next
+
+        self.assertEqual(node.data, 6)
+        self.assertEqual(previous.data, 8)
+        self.assertEqual(next.data, 4)
+
+    def test_prev_and_next_reverse(self):
+        linkedlist = LinkedList()
+        linkedlist.insert_first(4)
+        linkedlist.insert_first(6)
+        linkedlist.insert_first(8)
+        linkedlist.insert_first(9)
+        linkedlist.insert_first(5)
+
+        self.assertEqual(linkedlist.get_at(0).data, 5)
+        self.assertEqual(linkedlist.get_at(1).data, 9)
+        self.assertEqual(linkedlist.get_at(2).data, 8)
+        self.assertEqual(linkedlist.get_at(3).data, 6)
+        self.assertEqual(linkedlist.get_at(4).data, 4)
+
+        self.assertIsNone(linkedlist.get_at(0).prev)
+        self.assertEqual(linkedlist.get_at(0).data, 5)
+        self.assertEqual(linkedlist.get_at(0).next.data, 9)
+
+        self.assertEqual(linkedlist.get_at(1).prev.data, 5)
+        self.assertEqual(linkedlist.get_at(1).data, 9)
+        self.assertEqual(linkedlist.get_at(1).next.data, 8)
+
+        self.assertEqual(linkedlist.get_at(2).prev.data, 9)
+        self.assertEqual(linkedlist.get_at(2).data, 8)
+        self.assertEqual(linkedlist.get_at(2).next.data, 6)
+
+        self.assertEqual(linkedlist.get_at(3).prev.data, 8)
+        self.assertEqual(linkedlist.get_at(3).data, 6)
+        self.assertEqual(linkedlist.get_at(3).next.data, 4)
+
+        self.assertEqual(linkedlist.get_at(4).prev.data, 6)
+        self.assertEqual(linkedlist.get_at(4).data, 4)
+        self.assertIsNone(linkedlist.get_at(4).next)
+
+        linkedlist.reverse()
+
+        self.assertEqual(linkedlist.get_at(0).data, 4)
+        self.assertEqual(linkedlist.get_at(1).data, 6)
+        self.assertEqual(linkedlist.get_at(2).data, 8)
+        self.assertEqual(linkedlist.get_at(3).data, 9)
+        self.assertEqual(linkedlist.get_at(4).data, 5)
+
+        self.assertIsNone(linkedlist.get_at(0).prev)
+        self.assertEqual(linkedlist.get_at(0).data, 4)
+        self.assertEqual(linkedlist.get_at(0).next.data, 6)
+
+        self.assertEqual(linkedlist.get_at(1).prev.data, 4)
+        self.assertEqual(linkedlist.get_at(1).data, 6)
+        self.assertEqual(linkedlist.get_at(1).next.data, 8)
+
+        self.assertEqual(linkedlist.get_at(2).prev.data, 6)
+        self.assertEqual(linkedlist.get_at(2).data, 8)
+        self.assertEqual(linkedlist.get_at(2).next.data, 9)
+
+        self.assertEqual(linkedlist.get_at(3).prev.data, 8)
+        self.assertEqual(linkedlist.get_at(3).data, 9)
+        self.assertEqual(linkedlist.get_at(3).next.data, 5)
+
+        self.assertEqual(linkedlist.get_at(4).prev.data, 9)
+        self.assertEqual(linkedlist.get_at(4).data, 5)
+        self.assertIsNone(linkedlist.get_at(4).next)
+
+    def test_find_midpoint(self):
+        pass
 
 
 if __name__ == '__main__':
