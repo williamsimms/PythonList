@@ -114,12 +114,14 @@ class LinkedList:
         self.tail.next = None
         self.length -= 1
 
-    #! Unfinished
     def remove_at(self, index: int) -> None:
+        '''
+        Removes a Node at the specified index.
+        '''
         if self.head is None and self.tail is None:
             return
 
-        if index > self.length or index < 0:
+        if index > self.length - 1 or index < 0:
             return
 
         if index == 0:
@@ -131,15 +133,52 @@ class LinkedList:
         previous.next.prev = previous
         self.length -= 1
 
-    #! Unfinished
-    def reverse(self) -> None:
+#! Write Tests for Sort
+    def sort(self) -> None:
+        '''
+        Sorts the list by integer value, using bubble sort in ascending order.
+        '''
         if self.head is None and self.tail is None:
             return
 
-        pass
+        current: Node = self.head
+        next_node: Node = None
+
+        while current:
+            next_node = current.next
+
+            while next_node:
+                if next_node.data > current.data:
+                    temp = current.data
+                    current.data = next_node.data
+                    next_node.data = temp
+
+                next_node = next_node.next
+
+            current = current.next
+
+    def reverse(self) -> None:
+        '''
+        Reverses the doubly linked list.
+        '''
+        if self.head is None and self.tail is None:
+            return
+
+        current = self.head
+        temp = None
+
+        while current:
+            temp = current.prev
+            current.prev = current.next
+            current.next = temp
+            current = current.prev
 
     def get_first(self) -> Node:
-        if self.head is None:
+        '''
+        Gets and returns the node at the 0th position in the list.
+        The node is the head node.
+        '''
+        if self.head is None and self.tail is None:
             return
 
         return self.head
@@ -154,7 +193,7 @@ class LinkedList:
         if self.head is None and self.tail is None:
             return
 
-        if index < 0 or index == 0:
+        if index <= 0:
             return self.head
 
         current = self.head
@@ -179,7 +218,7 @@ class LinkedList:
 
         return self.tail
 
-    def length(self) -> int:
+    def get_length(self) -> int:
         '''
         Gets the length or amount of nodes within the linked list.
         '''
@@ -202,6 +241,12 @@ class LinkedList:
         self.tail = None
 
     def for_each(self, fn) -> None:
+        '''
+        Iterates through the entire linked list calling the passed in function
+        on the data of every node in the linked list. The passed function gets the 
+        node's data passed as the first argument and the index of the node as the
+        second argument.
+        '''
         if self.head is None and self.tail is None:
             return
 
@@ -215,6 +260,10 @@ class LinkedList:
             index += 1
 
     def find_index(self, data) -> int:
+        '''
+        Finds the first node with the specified data and returns the index of the node,
+        in the event, no node houses the data passed in, -1 will be returned.
+        '''
         if self.head is None and self.tail is None:
             return -1
 
@@ -231,6 +280,9 @@ class LinkedList:
         return -1
 
     def find(self, data) -> Node or None:
+        '''
+        Finds a specifi
+        '''
         if self.head is None and self.tail is None:
             return
 
@@ -238,7 +290,7 @@ class LinkedList:
 
         while current:
             if current.data == data:
-                return data
+                return current
 
             current = current.next
 
@@ -261,6 +313,13 @@ class LinkedList:
     def print(self):
         linkedlist = self.__str__()
         print(linkedlist)
+
+#! Test
+    def is_empty(self) -> bool:
+        if self.head is None and self.tail is None:
+            return True
+
+        return False
 
 
 if __name__ == '__main__':
