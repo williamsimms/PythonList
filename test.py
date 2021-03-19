@@ -48,11 +48,15 @@ class LinkedListTest(unittest.TestCase):
     def test_get_last(self):
         linkedlist = LinkedList()
         linkedlist.insert_first(4)
-        self.assertEqual(str(linkedlist.get_last()),
-                         "{'data': 4, 'next': None}")
+        self.assertEqual(linkedlist.get_last().data, 4)
+
         linkedlist.insert_first(2)
-        self.assertEqual(str(linkedlist.get_last()),
-                         "{'data': 4, 'next': None}")
+
+        self.assertEqual(linkedlist.get_last().data, 4)
+
+        linkedlist.insert_last(7)
+
+        self.assertEqual(linkedlist.get_last().data, 7)
 
     def test_clear(self):
         linkedlist = LinkedList()
@@ -185,8 +189,11 @@ class LinkedListTest(unittest.TestCase):
         linkedlist.insert_first(7)
         linkedlist.insert_first(3)
         linkedlist.insert_first(1)
+
         self.assertEqual(linkedlist.get_last().data, 4)
+
         linkedlist.remove_at(3)
+
         self.assertEqual(linkedlist.get_last().data, 7)
 
     def test_insert_at_start_when_empty(self):
@@ -318,6 +325,39 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(linkedlist.find(2).data, 2)
         self.assertEqual(linkedlist.find(9).data, 9)
         self.assertIsNone(linkedlist.find(15))
+
+    def test_sort(self):
+        linkedlist = LinkedList()
+        linkedlist.insert_first(5)
+        linkedlist.insert_first(2)
+        linkedlist.insert_first(1)
+        linkedlist.insert_first(4)
+        linkedlist.insert_first(9)
+        linkedlist.insert_first(22)
+        linkedlist.insert_first(3)
+        linkedlist.insert_first(11)
+
+        linkedlist.sort(type='asc')
+
+        self.assertEqual(linkedlist.get_at(0).data, 1)
+        self.assertEqual(linkedlist.get_at(1).data, 2)
+        self.assertEqual(linkedlist.get_at(2).data, 3)
+        self.assertEqual(linkedlist.get_at(3).data, 4)
+        self.assertEqual(linkedlist.get_at(3).data, 5)
+        self.assertEqual(linkedlist.get_at(3).data, 9)
+        self.assertEqual(linkedlist.get_at(3).data, 11)
+        self.assertEqual(linkedlist.get_at(3).data, 22)
+
+        linkedlist.sort(type='desc')
+
+        self.assertEqual(linkedlist.get_at(0).data, 22)
+        self.assertEqual(linkedlist.get_at(1).data, 11)
+        self.assertEqual(linkedlist.get_at(2).data, 9)
+        self.assertEqual(linkedlist.get_at(3).data, 5)
+        self.assertEqual(linkedlist.get_at(3).data, 4)
+        self.assertEqual(linkedlist.get_at(3).data, 3)
+        self.assertEqual(linkedlist.get_at(3).data, 2)
+        self.assertEqual(linkedlist.get_at(3).data, 1)
 
 
 if __name__ == '__main__':

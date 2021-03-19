@@ -12,19 +12,26 @@ class Node:
 
 
 class LinkedList:
+
     def __init__(self) -> None:
+        '''
+        Initializes the head and tail of the linked list to None and initializes the length to zero.
+        '''
         self.head: Node = None
         self.tail: Node = None
         self.length = 0
 
     def __str__(self) -> str:
+        '''
+        Returns string representation of the linked list.
+        '''
         linkedlist = ''
 
         current = self.head
 
         while current:
             linkedlist += str(current.data)
-            linkedlist += ' -><- '
+            linkedlist += ' -> '
             current = current.next
 
         linkedlist += 'None'
@@ -54,7 +61,7 @@ class LinkedList:
 
     def insert_last(self, data) -> None:
         '''
-        Inserts a node at the last positions in the linked list. 
+        Inserts a node at the last positions in the linked list.
         The newly insersted node becomes the tail of the linked list.
         '''
         if self.head is None and self.tail is None:
@@ -65,12 +72,15 @@ class LinkedList:
             return
 
         node = Node(data, prev=self.tail)
+        previous_tail = self.tail
         self.tail.next = node
+        self.tail = node
+        self.tail.prev = previous_tail
         self.length += 1
 
     def insert_at(self, index: int, data) -> None:
         '''
-        Inserts a node at any specified index within the linked list. 
+        Inserts a node at any specified index within the linked list.
         If the entered index is less than or equal to zero, the node will be entered in the
         0th position or the first and will become the head. If the index is greater than the size of
         the list, it will be inserted at the last position and become the tail of the list.
@@ -91,17 +101,22 @@ class LinkedList:
 
     def remove_first(self) -> None:
         '''
-        Removes the first node from the linked list. The node at the 1st position or the 
+        Removes the first node from the linked list. The node at the 1st position or the
         second node become the first node and such also the head of the linked list.
         '''
         if self.head is None:
             return
 
         self.head = self.head.next
+
+        if self.head is None:
+            self.length -= 1
+            return
+
         self.head.prev = None
         self.length -= 1
 
-    def remove_last(self, data) -> None:
+    def remove_last(self) -> None:
         '''
         Removes the last node from the linked list. The node at n - 1 becomes the tail and the
         node that is last in the list.
@@ -129,14 +144,19 @@ class LinkedList:
             return
 
         previous = self.get_at(index - 1)
+
+        if previous.next.next is None:
+            self.remove_last()
+            return
+
         previous.next = previous.next.next
         previous.next.prev = previous
         self.length -= 1
 
-#! Write Tests for Sort
-    def sort(self) -> None:
+    def sort(self, type) -> None:
         '''
-        Sorts the list by integer value, using bubble sort in ascending order.
+        Sorts the list by integer value, using bubble sort in either ascending order or descending order based
+        on the type that is supplied. Accepted types are 'asc' and 'desc', ascending and descending orders respectively.
         '''
         if self.head is None and self.tail is None:
             return
@@ -148,10 +168,17 @@ class LinkedList:
             next_node = current.next
 
             while next_node:
-                if next_node.data > current.data:
-                    temp = current.data
-                    current.data = next_node.data
-                    next_node.data = temp
+                if type == 'desc':
+                    if next_node.data > current.data:
+                        temp = current.data
+                        current.data = next_node.data
+                        next_node.data = temp
+
+                elif type == 'asc':
+                    if next_node.data < current.data:
+                        temp = current.data
+                        current.data = next_node.data
+                        next_node.data = temp
 
                 next_node = next_node.next
 
@@ -172,6 +199,11 @@ class LinkedList:
             current.prev = current.next
             current.next = temp
             current = current.prev
+
+        if temp:
+            prev_tail = self.tail
+            self.tail = self.head
+            self.head = prev_tail
 
     def get_first(self) -> Node:
         '''
@@ -220,7 +252,7 @@ class LinkedList:
 
     def get_length(self) -> int:
         '''
-        Gets the length or amount of nodes within the linked list.
+        Returns the length or amount of nodes within the linked list.
         '''
         if self.head is None and self.tail is None:
             return 0
@@ -228,6 +260,9 @@ class LinkedList:
         return self.length
 
     def __len__(self) -> int:
+        '''
+        Returns the length or amount of nodes within the linked list.
+        '''
         return self.length()
 
     def clear(self) -> None:
@@ -275,13 +310,14 @@ class LinkedList:
                 return index
 
             current = current.next
-            index += 0
+            index += 1
 
         return -1
 
     def find(self, data) -> Node or None:
         '''
-        Finds a specifi
+        Finds a specific node with the data passed in, the first node that is found that
+        has the matching data is returned, otherwise None is returned.
         '''
         if self.head is None and self.tail is None:
             return
@@ -297,6 +333,10 @@ class LinkedList:
         return None
 
     def contains(self, data) -> bool:
+        '''
+        Iterates through the list checking every node, and compares the node's data against the
+        passes in data. Returns True if the value exists in any node in the last and False otherwise.
+        '''
         if self.head is None and self.tail is None:
             return False
 
@@ -316,6 +356,9 @@ class LinkedList:
 
 #! Test
     def is_empty(self) -> bool:
+        '''
+        Returns True if the linked list is empty, other wise returns False.
+        '''
         if self.head is None and self.tail is None:
             return True
 
@@ -327,12 +370,19 @@ if __name__ == '__main__':
     linkedlist.insert_first(2)
     linkedlist.insert_first(6)
     linkedlist.insert_first(11)
-    linkedlist.print()
-    linkedlist.insert_last(22)
-    linkedlist.insert_at(2, 22)
-    linkedlist.insert_at(2242, 255)
-    linkedlist.insert_at(-22, 4)
+    linkedlist.insert_first(4)
+    linkedlist.insert_first(77)
+    linkedlist.insert_first(1)
+    linkedlist.insert_first(3)
 
     linkedlist.print()
 
-    linkedlist.get_at(3)
+    linkedlist.sort(type='desc')
+
+# print(linkedlist.get_length())
+
+    linkedlist.print()
+
+# node = linkedlist.get_at(3)
+# node = linkedlist.get_at(6)
+# print(node.data)
