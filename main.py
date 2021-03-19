@@ -435,8 +435,7 @@ class LinkedList:
             return False
 
         current = self.head
-        fast = current.next
-        counter = 0
+        fast = self.head
 
         while fast.next and fast.next.next:
             current = current.next
@@ -445,7 +444,7 @@ class LinkedList:
             if current == fast:
                 return True
 
-            return False
+        return False
 
 
 if __name__ == '__main__':

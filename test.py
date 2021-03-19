@@ -545,6 +545,25 @@ class LinkedListTest(unittest.TestCase):
     def test_is_circular(self):
         linkedlist = LinkedList()
 
+        linkedlist.insert_first(4)
+        linkedlist.insert_first(6)
+        linkedlist.insert_first(8)
+        linkedlist.insert_first(9)
+        linkedlist.insert_first(5)
+
+        self.assertFalse(linkedlist.is_circular())
+
+        linkedlist.tail.next = linkedlist.get_at(3)
+
+        self.assertEqual(linkedlist.tail.next.data, 6)
+        self.assertEqual(linkedlist.tail.next.next.data, 4)
+
+        self.assertTrue(linkedlist.is_circular())
+
+        linkedlist.tail.next = None
+
+        self.assertFalse(linkedlist.is_circular())
+
 
 if __name__ == '__main__':
     unittest.main()
