@@ -387,7 +387,7 @@ class LinkedList:
         node = self.head
         fast = self.head
 
-        while fast and fast.next:
+        while fast.next and fast.next.next:
             node = node.next
             fast = fast.next.next
 

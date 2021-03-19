@@ -451,7 +451,55 @@ class LinkedListTest(unittest.TestCase):
         self.assertIsNone(linkedlist.get_at(4).next)
 
     def test_find_midpoint(self):
-        pass
+        linkedlist = LinkedList()
+
+        linkedlist.insert_first(4)
+        linkedlist.insert_first(6)
+        linkedlist.insert_first(8)
+        linkedlist.insert_first(9)
+        linkedlist.insert_first(5)
+
+        node = linkedlist.find_midpoint()
+
+        self.assertEqual(node.data, 8)
+        self.assertEqual(node.prev.data, 9)
+        self.assertEqual(node.next.data, 6)
+
+        linkedlist.insert_last(7)
+        linkedlist.insert_last(11)
+        linkedlist.insert_first(44)
+
+        node = linkedlist.find_midpoint()
+
+        self.assertEqual(node.data, 8)
+        self.assertEqual(node.prev.data, 9)
+        self.assertEqual(node.next.data, 6)
+
+        linkedlist.insert_first(33)
+        linkedlist.insert_first(14)
+        linkedlist.insert_first(12)
+        linkedlist.insert_last(17)
+        linkedlist.insert_last(19)
+
+        node = linkedlist.find_midpoint()
+
+        self.assertEqual(node.data, 8)
+        self.assertEqual(node.prev.data, 9)
+        self.assertEqual(node.next.data, 6)
+
+    def test_step_back_from_tail(self):
+        linkedlist = LinkedList()
+        linkedlist.insert_first(4)
+        linkedlist.insert_first(6)
+        linkedlist.insert_first(8)
+        linkedlist.insert_first(9)
+        linkedlist.insert_first(5)
+
+    def test_step_forward_from_head(self):
+        linkedlist = LinkedList()
+
+    def test_is_circular(self):
+        linkedlist = LinkedList()
 
 
 if __name__ == '__main__':
