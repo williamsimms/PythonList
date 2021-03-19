@@ -401,8 +401,14 @@ class LinkedList:
         if self.head is None and self.tail is None:
             return False
 
-        current = self.head
+        current = self.tail
         counter = 0
+
+        while counter < index and current.prev is not None:
+            current = current.prev
+            counter += 1
+
+        return current
 
     def step_forward_from_head(self, index: int) -> Node:
         '''
@@ -415,6 +421,12 @@ class LinkedList:
         current = self.head
         counter = 0
 
+        while current.next is not None and counter < index:
+            current = current.next
+            counter += 1
+
+        return current
+
     def is_circular(self) -> bool:
         '''
         Returns True if the linked list is circular and False if the linked list is not circular.
@@ -423,7 +435,17 @@ class LinkedList:
             return False
 
         current = self.head
+        fast = current.next
         counter = 0
+
+        while fast.next and fast.next.next:
+            current = current.next
+            fast = fast.next.next
+
+            if current == fast:
+                return True
+
+            return False
 
 
 if __name__ == '__main__':

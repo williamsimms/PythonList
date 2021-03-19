@@ -489,14 +489,58 @@ class LinkedListTest(unittest.TestCase):
 
     def test_step_back_from_tail(self):
         linkedlist = LinkedList()
+
         linkedlist.insert_first(4)
         linkedlist.insert_first(6)
         linkedlist.insert_first(8)
         linkedlist.insert_first(9)
         linkedlist.insert_first(5)
 
+        node = linkedlist.step_back_from_tail(0)
+
+        self.assertEqual(node.data, 4)
+        self.assertEqual(node.prev.data, 6)
+        self.assertIsNone(node.next)
+
+        node = linkedlist.step_back_from_tail(3)
+
+        self.assertEqual(node.data, 9)
+        self.assertEqual(node.prev.data, 5)
+        self.assertEqual(node.next.data, 8)
+
+        node = linkedlist.step_back_from_tail(1)
+
+        self.assertEqual(node.data, 6)
+        self.assertEqual(node.prev.data, 8)
+        self.assertEqual(node.next.data, 4)
+
     def test_step_forward_from_head(self):
         linkedlist = LinkedList()
+
+        linkedlist = LinkedList()
+        linkedlist.insert_first(4)
+        linkedlist.insert_first(6)
+        linkedlist.insert_first(8)
+        linkedlist.insert_first(9)
+        linkedlist.insert_first(5)
+
+        node = linkedlist.step_forward_from_head(0)
+
+        self.assertEqual(node.data, 5)
+        self.assertIsNone(node.prev)
+        self.assertEqual(node.next.data, 9)
+
+        node = linkedlist.step_forward_from_head(3)
+
+        self.assertEqual(node.data, 6)
+        self.assertEqual(node.prev.data, 8)
+        self.assertEqual(node.next.data, 4)
+
+        node = linkedlist.step_forward_from_head(1)
+
+        self.assertEqual(node.data, 9)
+        self.assertEqual(node.prev.data, 5)
+        self.assertEqual(node.next.data, 8)
 
     def test_is_circular(self):
         linkedlist = LinkedList()
