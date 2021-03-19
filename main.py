@@ -124,6 +124,12 @@ class LinkedList:
         if self.head is None and self.tail is None:
             return
 
+        if self.tail.prev is None:
+            self.tail = None
+            self.head = None
+            self.length -= 1
+            return
+
         previous = self.tail.prev
         self.tail = previous
         self.tail.next = None
@@ -351,10 +357,12 @@ class LinkedList:
         return False
 
     def print(self):
+        '''
+        Prints the list to stdout.
+        '''
         linkedlist = self.__str__()
         print(linkedlist)
 
-#! Test
     def is_empty(self) -> bool:
         '''
         Returns True if the linked list is empty, other wise returns False.
@@ -367,22 +375,4 @@ class LinkedList:
 
 if __name__ == '__main__':
     linkedlist = LinkedList()
-    linkedlist.insert_first(2)
-    linkedlist.insert_first(6)
-    linkedlist.insert_first(11)
-    linkedlist.insert_first(4)
-    linkedlist.insert_first(77)
-    linkedlist.insert_first(1)
-    linkedlist.insert_first(3)
-
-    linkedlist.print()
-
-    linkedlist.sort(type='desc')
-
-# print(linkedlist.get_length())
-
-    linkedlist.print()
-
-# node = linkedlist.get_at(3)
-# node = linkedlist.get_at(6)
-# print(node.data)
+    

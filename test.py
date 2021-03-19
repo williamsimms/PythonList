@@ -343,10 +343,10 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(linkedlist.get_at(1).data, 2)
         self.assertEqual(linkedlist.get_at(2).data, 3)
         self.assertEqual(linkedlist.get_at(3).data, 4)
-        self.assertEqual(linkedlist.get_at(3).data, 5)
-        self.assertEqual(linkedlist.get_at(3).data, 9)
-        self.assertEqual(linkedlist.get_at(3).data, 11)
-        self.assertEqual(linkedlist.get_at(3).data, 22)
+        self.assertEqual(linkedlist.get_at(4).data, 5)
+        self.assertEqual(linkedlist.get_at(5).data, 9)
+        self.assertEqual(linkedlist.get_at(6).data, 11)
+        self.assertEqual(linkedlist.get_at(7).data, 22)
 
         linkedlist.sort(type='desc')
 
@@ -354,10 +354,25 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(linkedlist.get_at(1).data, 11)
         self.assertEqual(linkedlist.get_at(2).data, 9)
         self.assertEqual(linkedlist.get_at(3).data, 5)
-        self.assertEqual(linkedlist.get_at(3).data, 4)
-        self.assertEqual(linkedlist.get_at(3).data, 3)
-        self.assertEqual(linkedlist.get_at(3).data, 2)
-        self.assertEqual(linkedlist.get_at(3).data, 1)
+        self.assertEqual(linkedlist.get_at(4).data, 4)
+        self.assertEqual(linkedlist.get_at(5).data, 3)
+        self.assertEqual(linkedlist.get_at(6).data, 2)
+        self.assertEqual(linkedlist.get_at(7).data, 1)
+
+    def test_is_empty(self):
+        linkedlist = LinkedList()
+        linkedlist.insert_first(5)
+        linkedlist.insert_first(5)
+
+        self.assertFalse(linkedlist.is_empty())
+
+        linkedlist.remove_last()
+
+        self.assertFalse(linkedlist.is_empty())
+
+        linkedlist.clear()
+
+        self.assertTrue(linkedlist.is_empty())
 
 
 if __name__ == '__main__':
